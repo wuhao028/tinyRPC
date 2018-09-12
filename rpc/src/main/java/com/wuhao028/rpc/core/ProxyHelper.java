@@ -1,6 +1,7 @@
 package com.wuhao028.rpc.core;
 
 import com.wuhao028.rpc.request.RpcRequest;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -15,8 +16,9 @@ import java.util.List;
 public class ProxyHelper implements InvocationHandler {
 
     private String className;
-    public ProxyHelper(String className){
-        this.className=className;
+
+    public ProxyHelper(String className) {
+        this.className = className;
     }
 
     public Object bind(Class<?>[] interfaces) {
@@ -36,10 +38,8 @@ public class ProxyHelper implements InvocationHandler {
             paramsTypeName.add(sourceTypes[i].getName());
         }
         request.setParamsTypesName(paramsTypeName);
-
         Class returnClass = method.getReturnType();
 
-        return RequestHandler.request(className, request, returnClass);
-
+        return RequestHandler.getRequestHandler().request(className, request, returnClass);
     }
 }
